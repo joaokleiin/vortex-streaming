@@ -424,20 +424,17 @@ button {
 
 .hero-slider__controls {
   position: absolute;
-  inset: auto 4vw 2rem 4vw;
+  inset: auto 0 2rem 0; 
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center; 
+  align-items: flex-end; 
   pointer-events: none;
-}
-
-.hero-slider__controls > * {
-  pointer-events: auto;
 }
 
 .hero-slider__dots {
   display: flex;
   gap: 0.55rem;
+  pointer-events: auto;
 }
 
 .hero-slider__dot {

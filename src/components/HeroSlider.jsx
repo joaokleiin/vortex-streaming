@@ -87,15 +87,6 @@ export default function HeroSlider({ movies = [] }) {
         </div>
 
         <div className="hero-slider__controls">
-          <button
-            type="button"
-            className="slider-control"
-            onClick={() => goToSlide(activeIndex - 1)}
-            aria-label="Slide anterior"
-          >
-            ‹
-          </button>
-
           <div className="hero-slider__dots">
             {movies.map((movie, index) => (
               <button
@@ -109,15 +100,6 @@ export default function HeroSlider({ movies = [] }) {
               />
             ))}
           </div>
-
-          <button
-            type="button"
-            className="slider-control"
-            onClick={() => goToSlide(activeIndex + 1)}
-            aria-label="Proximo slide"
-          >
-            ›
-          </button>
         </div>
       </div>
     </section>
