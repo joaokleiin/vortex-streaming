@@ -137,7 +137,6 @@ button {
 .navbar__link:hover,
 .navbar__link--active {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .navbar__actions {
@@ -192,7 +191,7 @@ button {
 }
 
 .navbar__button--ghost {
-  background: rgba(255, 255, 255, 0.06);
+  background: transparent;
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: none;
 }
