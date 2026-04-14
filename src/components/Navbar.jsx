@@ -46,9 +46,9 @@ export default function Navbar() {
     <header className={`navbar ${isScrolled ? "navbar--solid" : ""}`}>
       <div className="navbar__brand">
         <Link to="/" className="navbar__logo">
-          StreamBox
+          Vortex
         </Link>
-        <span className="navbar__tagline">Streaming UI Lab</span>
+        <span className="navbar__tagline">Streaming</span>
       </div>
 
       <nav className="navbar__links" aria-label="Navegacao principal">

@@ -86,25 +86,6 @@ export default function HeroSlider({ movies = [] }) {
           </div>
         </div>
 
-        <div className="hero-slider__preview">
-          {movies.map((movie, index) => (
-            <button
-              key={movie.id}
-              type="button"
-              className={`hero-slider__preview-card ${
-                index === activeIndex ? "hero-slider__preview-card--active" : ""
-              }`}
-              onClick={() => goToSlide(index)}
-            >
-              <img src={movie.poster} alt={movie.title} />
-              <div>
-                <strong>{movie.title}</strong>
-                <span>{movie.genre}</span>
-              </div>
-            </button>
-          ))}
-        </div>
-
         <div className="hero-slider__controls">
           <button
             type="button"
