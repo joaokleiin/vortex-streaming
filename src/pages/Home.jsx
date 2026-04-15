@@ -49,26 +49,6 @@ export default function Home() {
     <div className="page page--home">
       <HeroSlider movies={heroMovies} />
 
-      <section className="home-ribbon">
-        <article className="home-ribbon__card">
-          <span className="section-tag">Experiencia nova</span>
-          <h2>Hero rotativo com navegacao viva</h2>
-          <p>
-            O destaque principal agora muda automaticamente com transicao suave e
-            navegacao manual por previews e controles laterais.
-          </p>
-        </article>
-
-        <article className="home-ribbon__card home-ribbon__card--accent">
-          <span className="section-tag">UX orientada a streaming</span>
-          <h2>Mais profundidade, menos grade estatica</h2>
-          <p>
-            A Home foi reorganizada para valorizar filmes em destaque e retomada
-            de conteudo com progresso visual.
-          </p>
-        </article>
-      </section>
-
       <div className="home-sections">
         <SpotlightCarousel
           title="Em alta agora"
