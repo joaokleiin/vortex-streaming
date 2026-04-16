@@ -1,46 +1,32 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function ContinueWatching({ items = [] }) {
   const trackRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
-    function updateControls() {
-      const track = trackRef.current;
+    const track = trackRef.current;
+    if (!track || items.length === 0) {
+      return undefined;
+    }
+
+    const step = Math.max(track.clientWidth * 0.4, 240);
+    const intervalId = window.setInterval(() => {
       if (!track) {
         return;
       }
 
-      setCanScrollLeft(track.scrollLeft > 12);
-      setCanScrollRight(track.scrollLeft + track.clientWidth < track.scrollWidth - 12);
-    }
+      const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+      if (isAtEnd) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
 
-    updateControls();
+      track.scrollBy({ left: step, behavior: "smooth" });
+    }, 2600);
 
-    const track = trackRef.current;
-    if (!track) {
-      return;
-    }
-
-    track.addEventListener("scroll", updateControls);
-    window.addEventListener("resize", updateControls);
-
-    return () => {
-      track.removeEventListener("scroll", updateControls);
-      window.removeEventListener("resize", updateControls);
-    };
+    return () => window.clearInterval(intervalId);
   }, [items.length]);
-
-  const scrollTrack = (distance) => {
-    const track = trackRef.current;
-    if (!track) {
-      return;
-    }
-
-    track.scrollBy({ left: distance, behavior: "smooth" });
-  };
 
   if (items.length === 0) {
     return null;
@@ -53,27 +39,6 @@ export default function ContinueWatching({ items = [] }) {
           <span className="section-tag">Retome rapido</span>
           <h2>Continue assistindo</h2>
           <p>Volte aos titulos com progresso visivel, interacao suave e estilo premium.</p>
-        </div>
-
-        <div className="continue-watching__nav">
-          <button
-            type="button"
-            className="slider-control continue-watching__arrow"
-            onClick={() => scrollTrack(trackRef.current?.clientWidth * -0.72)}
-            aria-label="Rolar para itens anteriores"
-            disabled={!canScrollLeft}
-          >
-            ‹
-          </button>
-          <button
-            type="button"
-            className="slider-control continue-watching__arrow"
-            onClick={() => scrollTrack(trackRef.current?.clientWidth * 0.72)}
-            aria-label="Rolar para itens seguintes"
-            disabled={!canScrollRight}
-          >
-            ›
-          </button>
         </div>
       </div>
 

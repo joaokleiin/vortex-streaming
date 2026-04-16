@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
-const navLinks = [{ to: "/", label: "Inicio" }];
+const navLinks = [
+  { to: "/", label: "Inicio" },
+  { to: "/", label: "Filmes" },
+  { to: "/", label: "Séries" },
+  { to: "/", label: "Minha Lista" }
+];
 
 const authLinks = [
   {
@@ -44,45 +49,51 @@ export default function Navbar() {
 
   return (
     <header className={`navbar ${isScrolled ? "navbar--solid" : ""}`}>
-      <div className="navbar__brand">
-        <Link to="/" className="navbar__logo">
-          Vortex
-        </Link>
-        <span className="navbar__tagline">Streaming</span>
-      </div>
+      <div className="container navbar__inner">
+        <div className="navbar__brand">
+          <Link to="/" className="navbar__logo">
+            Vortex
+          </Link>
+          <span className="navbar__tagline">Streaming</span>
+        </div>
 
-      <nav className="navbar__links" aria-label="Navegacao principal">
-        {navLinks.map((link) => (
-          <NavLink
-            key={link.to}
-            to={link.to}
-            className={({ isActive }) =>
-              `navbar__link ${isActive ? "navbar__link--active" : ""}`
-            }
-          >
-            {link.label}
-          </NavLink>
-        ))}
-      </nav>
-
-      <div className="navbar__actions">
-        {isLoggedIn ? (
-          <>
-            <div className="navbar__profile">
-              <span className="navbar__avatar">S</span>
-              <span>Sessao ativa</span>
-            </div>
-            <button type="button" className="navbar__button" onClick={handleLogout}>
-              Sair
-            </button>
-          </>
-        ) : (
-          authLinks.map((link) => (
-            <Link key={link.to} to={link.to} className={link.className}>
+        <nav className="navbar__menu" aria-label="Navegacao principal">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) =>
+                `navbar__link ${isActive ? "navbar__link--active" : ""}`
+              }
+            >
               {link.label}
-            </Link>
-          ))
-        )}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="navbar__actions">
+          <div className="navbar__search">
+            <input type="search" placeholder="Buscar filmes, séries..." aria-label="Buscar conteúdo" />
+          </div>
+
+          {isLoggedIn ? (
+            <>
+              <div className="navbar__profile">
+                <span className="navbar__avatar">S</span>
+                <span>Sessão</span>
+              </div>
+              <button type="button" className="navbar__button" onClick={handleLogout}>
+                Sair
+              </button>
+            </>
+          ) : (
+            authLinks.map((link) => (
+              <Link key={link.to} to={link.to} className={link.className}>
+                {link.label}
+              </Link>
+            ))
+          )}
+        </div>
       </div>
     </header>
   );

@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import ContinueWatching from "../components/ContinueWatching";
-import HeroSlider from "../components/HeroSlider";
-import SpotlightCarousel from "../components/SpotlightCarousel";
-import {
-  getContinueWatching,
-  getHeroMovies,
-  getMovieRows
-} from "../services/api";
+import HeroSection from "../components/HeroSection";
+import MovieSection from "../components/MovieSection";
+import { getContinueWatching, getHeroMovies, getMovieRows } from "../services/api";
 
 export default function Home() {
-  const [heroMovies, setHeroMovies] = useState([]);
-  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [heroMovie, setHeroMovie] = useState(null);
+  const [movieRows, setMovieRows] = useState([]);
   const [continueWatching, setContinueWatching] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,10 +26,8 @@ export default function Home() {
         return;
       }
 
-      const trendingRow = rows.find((row) => row.id === "trending");
-
-      setHeroMovies(hero);
-      setTrendingMovies(trendingRow?.movies ?? []);
+      setHeroMovie(hero[0] ?? null);
+      setMovieRows(rows);
       setContinueWatching(continueItems);
       setIsLoading(false);
     }
@@ -45,19 +39,21 @@ export default function Home() {
     };
   }, []);
 
+  const trendingRow = movieRows.find((row) => row.id === "trending");
+
   return (
     <div className="page page--home">
-      <HeroSlider movies={heroMovies} />
+      <HeroSection movie={heroMovie} />
 
-      <div className="home-sections">
-        <SpotlightCarousel
-          title="Em alta agora"
-          subtitle="Um destaque central com profundidade e troca animada entre os titulos."
-          movies={trendingMovies}
+      <main className="home-sections">
+        <MovieSection
+          title="New Release Movies"
+          subtitle="Descubra os lançamentos com visual cinematográfico e categorias selecionadas."
+          movies={trendingRow?.movies ?? []}
         />
 
         <ContinueWatching items={continueWatching} />
-      </div>
+      </main>
 
       {isLoading && <p className="page__status">Carregando experiencia...</p>}
     </div>
