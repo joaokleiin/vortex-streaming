@@ -767,6 +767,11 @@ button {
   border: 1px solid transparent;
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-sm);
+
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar__button:hover {
